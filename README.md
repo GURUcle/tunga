@@ -71,8 +71,8 @@ empty, use **Reset demo data** in the top right of the portfolio page.
 
 ```
 index.html          the entire application — markup, styles and logic
-images/             property photography (illustrative, AI-generated)
-images/originals/   full-resolution sources, excluded from the repo
+images/             property photography used by the site (JPEG, 1200px wide)
+images/originals/   full-resolution sources (PNG, 1536px, watermarked)
 ```
 
 ## Compliance map
