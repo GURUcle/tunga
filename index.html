@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tunga — Property crowdfunding for Namibia</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--ink:#13201B;--ink2:#3B4A44;--muted:#6C7A73;
+--bg:#FAF9F6;--surface:#FFFFFF;--surface2:#F5F3ED;
+--line:#E5E1D7;--line2:#D2CDC0;
+--green:#0B5D4A;--green2:#0E7A61;--greensoft:#E7F2EE;
+--sand:#A8822A;--sandsoft:#F9F1DE;
+--red:#A63A32;--redsoft:#FAEAE8;
+--amber:#8F6410;--ambersoft:#FBF0D9;
+--r:14px;
+--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-0.02em;line-height:1.15}
+h1{font-size:46px}
+h2{font-size:30px}
+h3{font-size:20px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.demo-ribbon{background:var(--ink);color:#E9E5DA;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:7px 12px}
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,249,246,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:28px;height:66px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:21px;letter-spacing:.02em}
+.brand .mark{width:26px;height:26px;border:1.5px solid var(--green);border-radius:50%;display:grid;place-items:center;font-size:11px;color:var(--green);font-family:var(--sans)}
+.navlinks{display:flex;gap:22px;margin-left:8px}
+.navlinks a{font-size:14px;color:var(--ink2);padding:4px 0;border-bottom:1.5px solid transparent}
+.navlinks a:hover{color:var(--ink);border-color:var(--line2)}
+.navlinks a.on{color:var(--green);border-color:var(--green)}
+.spacer{flex:1}
+.roleswitch{display:flex;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:3px}
+.roleswitch button{border:0;background:transparent;font-family:var(--sans);font-size:12.5px;color:var(--muted);padding:6px 14px;border-radius:999px;cursor:pointer}
+.roleswitch button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(19,32,27,.08)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans);font-size:14px;font-weight:500;border-radius:10px;padding:11px 20px;border:1px solid transparent;cursor:pointer;transition:.15s}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green2)}
+.btn-ghost{background:transparent;border-color:var(--line2);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink2)}
+.btn-sm{padding:7px 13px;font-size:13px;border-radius:8px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn-danger{background:var(--redsoft);color:var(--red);border-color:#EFD3CF}
+section{padding:64px 0}
+.hero{padding:76px 0 48px}
+.eyebrow{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--sand);font-weight:500;margin-bottom:18px}
+.hero h1{max-width:760px}
+.hero p.lead{font-size:18px;color:var(--ink2);max-width:600px;margin-top:20px}
+.hero-cta{display:flex;gap:12px;margin-top:30px}
+.statstrip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:56px}
+.statstrip div{padding:22px 0;border-right:1px solid var(--line)}
+.statstrip div:last-child{border-right:0}
+.statstrip .k{font-family:var(--serif);font-size:26px;color:var(--ink)}
+.statstrip .l{font-size:12px;color:var(--muted);margin-top:2px}
+.statstrip div:not(:first-child){padding-left:24px}
+.warn-banner{border:1px solid #EBD9B4;background:var(--sandsoft);border-radius:var(--r);padding:18px 22px;display:flex;gap:14px;align-items:flex-start}
+.warn-banner .ic{width:22px;height:22px;border-radius:50%;background:var(--sand);color:#fff;display:grid;place-items:center;font-size:13px;flex:0 0 22px;margin-top:1px}
+.warn-banner p{font-size:13.5px;color:#6B4E12;line-height:1.6}
+.warn-banner strong{color:#4A3508}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:.18s}
+.card:hover{border-color:var(--line2);box-shadow:0 6px 20px rgba(19,32,27,.06)}
+.card-top{height:112px;background:var(--surface2);position:relative;overflow:hidden}
+.card-top img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card-top:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(19,32,27,0) 50%,rgba(19,32,27,.32));pointer-events:none}
+.card-top .loc{position:absolute;top:12px;left:14px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:rgba(255,255,255,.9);padding:3px 9px;border-radius:5px;z-index:2}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+.hero-img img{width:100%;display:block;border-radius:18px;aspect-ratio:4/3;object-fit:cover}
+.detail-hero{position:relative;margin:26px 0 10px;border-radius:16px;overflow:hidden}
+.detail-hero img{width:100%;height:360px;object-fit:cover;display:block}
+.detail-hero .cap{position:absolute;bottom:10px;right:12px;font-size:11px;color:#fff;background:rgba(19,32,27,.58);padding:4px 9px;border-radius:5px;letter-spacing:.04em}
+.card-body{padding:18px 20px 20px}
+.card-body h3{font-size:19px;margin-bottom:2px}
+.card-body .sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.badge{font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:var(--surface2);color:var(--ink2);border:1px solid var(--line)}
+.detail-grid{display:grid;grid-template-columns:1fr 340px;gap:22px;align-items:start}
+.grid2.start{align-items:start}
+.badge.green{background:var(--greensoft);color:var(--green);border-color:#CFE5DD}
+.badge.sand{background:var(--sandsoft);color:var(--sand);border-color:#EBD9B4}
+.badge.red{background:var(--redsoft);color:var(--red);border-color:#EFD3CF}
+.badge.amber{background:var(--ambersoft);color:var(--amber);border-color:#EBDCB5}
+.progress{height:5px;background:var(--surface2);border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--green);border-radius:99px}
+.pmeta{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:9px}
+.pmeta b{color:var(--ink);font-weight:500}
+.raise{font-family:var(--serif);font-size:19px;margin-top:12px}
+.raise span{font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.tabs{display:flex;gap:24px;border-bottom:1px solid var(--line);margin-bottom:26px;overflow-x:auto}
+.tabs button{background:0;border:0;border-bottom:2px solid transparent;padding:0 0 12px;font-family:var(--sans);font-size:14px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tabs button.on{color:var(--ink);border-color:var(--green)}
+.prose h3{margin:26px 0 10px}
+.prose h3:first-child{margin-top:0}
+.prose p{color:var(--ink2);margin-bottom:12px;font-size:14.5px}
+.prose ul{margin:0 0 14px 18px;color:var(--ink2);font-size:14.5px}
+.prose li{margin-bottom:6px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:16px}
+.kv div{padding:13px 16px;border-bottom:1px solid var(--line);font-size:13.5px}
+.kv div:nth-child(odd){background:var(--surface2);color:var(--muted);width:52%}
+.kv div:nth-child(even){font-weight:500}
+.kv div:nth-last-child(-n+2){border-bottom:0}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-weight:500;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:13px 12px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.sticky{position:sticky;top:88px}
+.invest-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.invest-card .big{font-family:var(--serif);font-size:32px;line-height:1.1}
+.invest-card .of{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.rows{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.rows:last-of-type{border-bottom:0}
+.rows span:first-child{color:var(--muted)}
+.rows span:last-child{font-weight:500}
+.modal-bg{position:fixed;inset:0;background:rgba(19,32,27,.42);z-index:100;display:grid;place-items:center;padding:24px;overflow-y:auto}
+.modal{background:var(--surface);border-radius:18px;max-width:560px;width:100%;padding:28px;position:relative;max-height:90vh;overflow-y:auto}
+.modal h3{font-size:23px;margin-bottom:4px}
+.modal .close{position:absolute;top:18px;right:18px;background:0;border:0;font-size:20px;color:var(--muted);cursor:pointer;line-height:1}
+.stepper{display:flex;gap:6px;margin:18px 0 24px}
+.stepper i{flex:1;height:3px;background:var(--line);border-radius:99px}
+.stepper i.on{background:var(--green)}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;font-family:var(--sans);font-size:15px;padding:11px 13px;border:1px solid var(--line2);border-radius:9px;background:var(--surface);color:var(--ink)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--greensoft);border-color:var(--green)}
+.chips{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.chips button{font-size:12.5px;padding:6px 12px;border-radius:99px;border:1px solid var(--line2);background:var(--surface);cursor:pointer;color:var(--ink2)}
+.chips button:hover{border-color:var(--green);color:var(--green)}
+.check{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink2);cursor:pointer}
+.check:last-of-type{border-bottom:0}
+.check input{margin-top:3px;accent-color:var(--green);width:16px;height:16px;flex:0 0 16px}
+.notice{border-radius:9px;padding:12px 14px;font-size:13px;line-height:1.55;margin-bottom:14px}
+.notice.info{background:var(--greensoft);color:#0A4A3B}
+.notice.err{background:var(--redsoft);color:var(--red)}
+.notice.warn{background:var(--ambersoft);color:var(--amber)}
+.clock{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-variant-numeric:tabular-nums}
+.clock .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.clock.urgent .dot{background:var(--red)}
+.clock.soon .dot{background:var(--sand)}
+.stepline{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:14px;padding-bottom:20px;position:relative}
+.step:last-child{padding-bottom:0}
+.step .bullet{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line2);display:grid;place-items:center;font-size:11px;color:var(--muted);flex:0 0 22px;background:var(--surface);z-index:1}
+.step.done .bullet{background:var(--green);border-color:var(--green);color:#fff}
+.step.now .bullet{border-color:var(--green);color:var(--green);box-shadow:0 0 0 4px var(--greensoft)}
+.step:not(:last-child):after{content:"";position:absolute;left:10.5px;top:22px;bottom:0;width:1px;background:var(--line)}
+.step .st{font-size:14px;font-weight:500}
+.step .sd{font-size:12.5px;color:var(--muted)}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
+.kpi .k{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.kpi .k .v{font-family:var(--serif);font-size:24px;line-height:1.2}
+.kpi .k .l{font-size:11.5px;color:var(--muted);margin-top:3px;letter-spacing:.03em}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin-bottom:22px}
+.panel h3{font-size:18px;margin-bottom:4px}
+.panel .desc{font-size:13px;color:var(--muted);margin-bottom:18px}
+footer{border-top:1px solid var(--line);padding:40px 0 60px;margin-top:40px;font-size:12.5px;color:var(--muted)}
+footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:28px}
+footer h4{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:10px;font-weight:500}
+footer a{display:block;padding:3px 0}
+footer a:hover{color:var(--ink)}
+.rule{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:18px;line-height:1.7}
+.hide{display:none!important}
+.mt8{margin-top:8px}.mt16{margin-top:16px}.mt24{margin-top:24px}.mt32{margin-top:32px}
+.row{display:flex;align-items:center;gap:10px}
+.between{display:flex;align-items:center;justify-content:space-between;gap:16px}
+@media(max-width:900px){
+h1{font-size:34px}h2{font-size:25px}
+.grid3,.grid2,.detail-grid,.hero-grid{grid-template-columns:1fr}
+.hero-grid{gap:32px}
+.detail-hero img{height:220px}
+.statstrip{grid-template-columns:1fr 1fr}
+.statstrip div{border-right:0;border-bottom:1px solid var(--line);padding-left:0!important}
+.kpi{grid-template-columns:1fr 1fr}
+.navlinks{display:none}
+footer .cols{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="demo-ribbon">Prototype &middot; illustrative data only &middot; not an offer of securities</div>
+<header class="nav"><div class="wrap nav-in" id="nav"></div></header>
+<main id="app"></main>
+<div id="modal-root"></div>
+<footer><div class="wrap" id="foot"></div></footer>
+<script>
+/* ============================================================
+   TUNGA — property crowdfunding prototype for Namibia
+   Compliance engine modelled on NAMFISA Regulatory Sandbox
+   Crowdfunding Guidelines, effective 28 November 2025.
+   ============================================================ */
+
+const D = 86400000;
+const NS = n => 'N$' + Math.round(n).toLocaleString('en-US');
+const PC = n => (n*100).toFixed(1) + '%';
+const now = () => Date.now();
+
+/* ---------- seed ---------- */
+function seed(){
+  const t = now();
+  return {
+    role: 'investor',
+    investors: [
+      {id:'i1', name:'Clerence Nghipandulwa', email:'clerence@example.na', classification:'retail', netWorth:1400000, ytd:20000, kyc:'verified'},
+      {id:'i2', name:'Maria !Gawaxab', email:'m.gawaxab@example.na', classification:'sophisticated', netWorth:4200000, ytd:380000, kyc:'verified'},
+      {id:'i3', name:'Johannes Amutenya', email:'j.amutenya@example.na', classification:'retail', netWorth:900000, ytd:88000, kyc:'verified'},
+      {id:'i4', name:'Selma Kavezeri', email:'s.kavezeri@example.na', classification:'hnwi', netWorth:12400000, ytd:1100000, kyc:'verified'},
+      {id:'i5', name:'Tangeni Capital CC', email:'deals@tangeni.example.na', classification:'sophisticated', netWorth:6800000, ytd:240000, kyc:'verified'}
+    ],
+    offerings: [
+      {
+        id:'khomasdal', img:'images/khomasdal.jpg', spv:'Khomasdal Ridge SPV (Pty) Ltd', regNo:'2026/0417',
+        title:'Khomasdal Ridge', place:'Khomasdal, Windhoek', region:'Khomas',
+        type:'equity', target:9500000, raised:6240000, unitPrice:10000, minTicket:10000,
+        status:'live', submittedAt:t-52*D, approvedAt:t-28*D, openedAt:t-26*D, closesAt:t+34*D,
+        holdYears:7, projected:6.5,
+        property:{units:18, value:32000000, debt:22500000, occupancy:94, built:2014, size:'1,240 m²', tenure:'Sectional title'},
+        useOfFunds:[
+          {label:'Purchase price settlement', amount:29000000},
+          {label:'Transfer duty and conveyancing', amount:1450000},
+          {label:'Refurbishment (18 units)', amount:1100000},
+          {label:'Working capital reserve', amount:450000}
+        ],
+        projections:[
+          {year:'2027', revenue:2880000, opex:940000, noi:1940000, dist:617500},
+          {year:'2028', revenue:2995000, opex:980000, noi:2015000, dist:641500},
+          {year:'2029', revenue:3115000, opex:1020000, noi:2095000, dist:666500}
+        ],
+        capTable:[
+          {holder:'Crowd investors (Tunga)', before:'0.0%', after:'29.7%'},
+          {holder:'Founder / sponsor equity', before:'100.0%', after:'2.8%'},
+          {holder:'Bank of Namibia-licensed lender (debt)', before:'—', after:'67.5%'}
+        ],
+        risks:[
+          'Tenant default and vacancy risk. Underwriting assumes 94% occupancy; a 10% vacancy reduces projected distributions by roughly a third.',
+          'Interest rate risk. The N$22.5m facility is priced at prime-linked rates; a 200bp increase would absorb most of the annual distributable cash.',
+          'Illiquidity. There is no guaranteed secondary market. Investors should expect to hold for the full seven-year term.',
+          'Concentration. A single 18-unit building in one suburb carries more risk than a diversified portfolio.',
+          'Valuation risk. The N$32m acquisition price is supported by an independent valuation, but resale values are not guaranteed.',
+          'Dilution. Further capital raises by the SPV may dilute existing holders.'
+        ],
+        updates:[
+          {date:t-9*D, title:'Due diligence completed', body:'Independent valuation, structural survey and title deed search all returned clean. Bond approval received from the lender at prime + 1.25%.'},
+          {date:t-19*D, title:'Round opened to investors', body:'Offering document published on the platform 14 days before the offer opened, as required under section 13(3).'}
+        ],
+        docs:['Offering document (Annexure 1 compliant)','Independent valuation report','Bond term sheet','Title deed search','Structural survey','SPV constitutional documents','Risk acknowledgement form']
+      },
+      {
+        id:'vineta', img:'images/vineta.jpg', spv:'Vineta Court SPV (Pty) Ltd', regNo:'2026/0392',
+        title:'Vineta Court', place:'Vineta, Swakopmund', region:'Erongo',
+        type:'debt', target:7200000, raised:2952000, unitPrice:5000, minTicket:5000,
+        status:'live', submittedAt:t-44*D, approvedAt:t-20*D, openedAt:t-18*D, closesAt:t+8*D,
+        holdYears:5, projected:11.5,
+        property:{units:12, value:19500000, debt:12300000, occupancy:100, built:2009, size:'860 m²', tenure:'Freehold'},
+        useOfFunds:[
+          {label:'Acquisition', amount:17200000},
+          {label:'Transaction costs', amount:1100000},
+          {label:'Refurbishment', amount:1200000}
+        ],
+        projections:[
+          {year:'2027', revenue:1728000, opex:520000, noi:1208000, dist:828000},
+          {year:'2028', revenue:1795000, opex:545000, noi:1250000, dist:828000},
+          {year:'2029', revenue:1865000, opex:570000, noi:1295000, dist:828000}
+        ],
+        capTable:[
+          {holder:'Crowd noteholders (Tunga)', before:'0.0%', after:'36.9%'},
+          {holder:'Sponsor equity', before:'100.0%', after:'0.0%'},
+          {holder:'Bank facility (senior)', before:'—', after:'63.1%'}
+        ],
+        risks:[
+          'Default risk. The note is secured by a second-ranking mortgage bond; recovery in a default depends on the sale value of the property.',
+          'Coastal market risk. Swakopmund values are sensitive to the uranium and tourism cycles.',
+          'Subordination. The bank facility ranks ahead of noteholders.',
+          'Illiquidity. Five-year term with no early redemption right.'
+        ],
+        updates:[
+          {date:t-4*D, title:'Occupancy confirmed at 100%', body:'All twelve units let on twelve-month leases with a 7% escalation clause.'}
+        ],
+        docs:['Offering document (Annexure 1 compliant)','Independent valuation report','Bond registration documents','Tenancy schedule','Insurance certificate']
+      },
+      {
+        id:'oshakati', img:'images/oshakati.jpg', spv:'Oshakati North SPV (Pty) Ltd', regNo:'2026/0501',
+        title:'Oshakati North', place:'Oshakati, Oshana', region:'Oshana',
+        type:'equity', target:8500000, raised:0, unitPrice:5000, minTicket:5000,
+        status:'review', submittedAt:t-12*D, approvedAt:null, openedAt:null, closesAt:null,
+        holdYears:8, projected:7.2,
+        property:{units:24, value:26000000, debt:17500000, occupancy:0, built:2027, size:'1,780 m²', tenure:'Freehold'},
+        useOfFunds:[
+          {label:'Land and construction', amount:22800000},
+          {label:'Professional fees', amount:1600000},
+          {label:'Contingency', amount:1600000}
+        ],
+        projections:[
+          {year:'2028', revenue:0, opex:0, noi:0, dist:0},
+          {year:'2029', revenue:2640000, opex:880000, noi:1760000, dist:612000},
+          {year:'2030', revenue:2825000, opex:920000, noi:1905000, dist:650000}
+        ],
+        capTable:[
+          {holder:'Crowd investors (Tunga)', before:'0.0%', after:'32.7%'},
+          {holder:'Sponsor equity', before:'100.0%', after:'0.0%'},
+          {holder:'Development bond', before:'—', after:'67.3%'}
+        ],
+        risks:[
+          'Construction risk. The project is pre-build; cost overruns and delays would reduce returns.',
+          'No operating history. The SPV has no revenue until practical completion.',
+          'Northern market risk. Oshakati rental demand is tied to government and informal trade activity.'
+        ],
+        updates:[],
+        docs:['Offering document (draft)','Feasibility study','Quantity surveyor estimate','Land valuation']
+      },
+      {
+        id:'walvisbay', img:'images/walvisbay.jpg', spv:'Lagoon View SPV (Pty) Ltd', regNo:'2026/0288',
+        title:'Lagoon View', place:'Walvis Bay, Erongo', region:'Erongo',
+        type:'equity', target:6800000, raised:6800000, unitPrice:10000, minTicket:10000,
+        status:'closed', submittedAt:t-150*D, approvedAt:t-118*D, openedAt:t-110*D, closesAt:t-50*D, closedAt:t-40*D,
+        holdYears:7, projected:6.8,
+        property:{units:14, value:21500000, debt:14700000, occupancy:92, built:2011, size:'980 m²', tenure:'Freehold'},
+        useOfFunds:[{label:'Acquisition',amount:19500000},{label:'Costs',amount:2000000}],
+        projections:[
+          {year:'2026', revenue:2016000, opex:680000, noi:1336000, dist:462000},
+          {year:'2027', revenue:2095000, opex:705000, noi:1390000, dist:462000},
+          {year:'2028', revenue:2178000, opex:730000, noi:1448000, dist:462000}
+        ],
+        capTable:[{holder:'Crowd investors (Tunga)',before:'0.0%',after:'31.6%'},{holder:'Sponsor equity',before:'100.0%',after:'0.0%'},{holder:'Bank facility',before:'—',after:'68.4%'}],
+        risks:['Port market dependency.','Illiquidity.','Interest rate risk.'],
+        updates:[{date:t-38*D, title:'Round closed at target', body:'N$6.8m raised from 214 investors. Funds released to the issuer within five business days of close.'}],
+        docs:['Offering document','Valuation','Bond documents','Post-offer inspection report (due)']
+      }
+    ],
+    subs: [
+      {id:'s0', offeringId:'walvisbay', investorId:'i1', amount:20000, units:2, status:'confirmed', createdAt:t-105*D, settledAt:t-104*D, distributions:340, lastDist:t-20*D, nextDist:t+70*D, valueChange:558},
+      {id:'s1', offeringId:'khomasdal', investorId:'i2', amount:380000, units:38, status:'confirmed', createdAt:t-20*D, settledAt:t-19*D},
+      {id:'s2', offeringId:'khomasdal', investorId:'i3', amount:88000, units:8.8, status:'confirmed', createdAt:t-18*D, settledAt:t-17*D},
+      {id:'s3', offeringId:'vineta', investorId:'i4', amount:1100000, units:220, status:'confirmed', createdAt:t-12*D, settledAt:t-11*D},
+      {id:'s4', offeringId:'khomasdal', investorId:'i5', amount:240000, units:24, status:'confirmed', createdAt:t-8*D, settledAt:t-7*D}
+    ],
+    filings: [
+      {id:'f1', offeringId:'khomasdal', type:'Offering document to NAMFISA', submittedAt:t-30*D, note:'Filed 48 hours before publication (s13(1))'},
+      {id:'f2', offeringId:'khomasdal', type:'Due diligence report to NAMFISA', submittedAt:t-31*D, note:'Three weeks before launch (s37(b))'},
+      {id:'f3', offeringId:'vineta', type:'Offering document to NAMFISA', submittedAt:t-22*D, note:'Filed 48 hours before publication (s13(1))'},
+      {id:'f4', offeringId:'walvisbay', type:'Post-offer inspection report', submittedAt:null, note:'Due within two weeks of inspection completion (s42)'}
+    ],
+    audit: [
+      {at:t-40*D, who:'System', what:'Round closed at target — Lagoon View. N$6.8m released to issuer.'},
+      {at:t-28*D, who:'Compliance', what:'Khomasdal Ridge approved and published. 90-day review clock closed.'},
+      {at:t-12*D, who:'Issuer', what:'Oshakati North offering document submitted for review.'}
+    ],
+    modal:null
+  };
+}
+
+/* ---------- persistence ---------- */
+const KEY = 'tunga.v2';
+let S;
+try {
+  const raw = localStorage.getItem(KEY);
+  S = raw ? JSON.parse(raw) : seed();
+} catch(e){ S = seed(); }
+if(!S || !S.offerings || !S.offerings.length || !S.offerings[0].img || !S.subs) S = seed();
+try { localStorage.removeItem('tunga.v1'); } catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+/* ---------- helpers ---------- */
+const me = () => S.investors[0];
+const off = id => S.offerings.find(o=>o.id===id);
+const inv = id => S.investors.find(i=>i.id===id);
+const pct = o => Math.min(1, o.raised / o.target);
+const daysLeft = o => o.closesAt ? Math.max(0, Math.ceil((o.closesAt - now())/D)) : 0;
+const capFor = u => u.classification === 'retail' ? Math.min(u.netWorth*0.10, 100000) : u.netWorth*0.10;
+const capLeft = u => Math.max(0, capFor(u) - u.ytd);
+const fmtDate = ts => new Date(ts).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+
+function audit(what, who){
+  S.audit.unshift({at:now(), who:who||'Investor', what});
+  save();
+}
+
+function skyline(){
+  return '<svg viewBox="0 0 320 112" preserveAspectRatio="none" aria-hidden="true">'+
+    '<rect width="320" height="112" fill="#F0EDE4"/>'+
+    '<path d="M0 96h320v16H0z" fill="#E4DFD2"/>'+
+    '<path d="M28 96V52h34v44zM70 96V38h26v58zM104 96V64h40v32zM152 96V30h30v66zM190 96V56h34v40zM232 96V44h24v52zM264 96V68h32v28z" fill="#DCD6C6"/>'+
+    '<path d="M28 52h34M70 38h26M104 64h40M152 30h30M190 56h34M232 44h24M264 68h32" stroke="#C9C2AE" stroke-width="1.5"/>'+
+    '<g fill="#C9C2AE">'+
+    '<rect x="36" y="62" width="7" height="8"/><rect x="48" y="62" width="7" height="8"/><rect x="36" y="76" width="7" height="8"/><rect x="48" y="76" width="7" height="8"/>'+
+    '<rect x="76" y="48" width="6" height="7"/><rect x="86" y="48" width="6" height="7"/><rect x="76" y="62" width="6" height="7"/><rect x="86" y="62" width="6" height="7"/>'+
+    '<rect x="160" y="40" width="6" height="7"/><rect x="170" y="40" width="6" height="7"/><rect x="160" y="54" width="6" height="7"/><rect x="170" y="54" width="6" height="7"/><rect x="160" y="68" width="6" height="7"/><rect x="170" y="68" width="6" height="7"/>'+
+    '<rect x="198" y="66" width="7" height="8"/><rect x="210" y="66" width="7" height="8"/><rect x="198" y="80" width="7" height="8"/><rect x="210" y="80" width="7" height="8"/>'+
+    '</g>'+
+    '<path d="M0 96c40-10 80-6 120-12s90-14 130-10 50 8 70 10" stroke="#C6BFA9" stroke-width="1" fill="none"/>'+
+    '</svg>';
+}
+
+/* ---------- nav ---------- */
+function renderNav(){
+  const r = S.role;
+  const links = r==='investor'
+    ? [['#/','Offerings'],['#/portfolio','My portfolio'],['#/rulebook','How it works']]
+    : r==='issuer'
+    ? [['#/issuer','Issuer dashboard'],['#/rulebook','Issuer rules']]
+    : [['#/console','Compliance console'],['#/rulebook','Rulebook']];
+  const cur = location.hash || '#/';
+  document.getElementById('nav').innerHTML =
+    '<a class="brand" href="#/"><span class="mark">T</span>Tunga</a>'+
+    '<nav class="navlinks">'+links.map(l=>'<a href="'+l[0]+'" class="'+(cur===l[0]?'on':'')+'">'+l[1]+'</a>').join('')+'</nav>'+
+    '<div class="spacer"></div>'+
+    '<div class="roleswitch">'+
+      ['investor','issuer','regulator'].map(x=>'<button class="'+(r===x?'on':'')+'" onclick="setRole(\''+x+'\')">'+({investor:'Investor',issuer:'Issuer',regulator:'NAMFISA'})[x]+'</button>').join('')+
+    '</div>';
+}
+
+function setRole(r){
+  S.role = r; save();
+  location.hash = r==='investor' ? '#/' : r==='issuer' ? '#/issuer' : '#/console';
+  render();
+}
+
+/* ---------- home ---------- */
+function renderHome(){
+  const live = S.offerings.filter(o=>o.status==='live');
+  const totalRaised = S.offerings.reduce((a,o)=>a+o.raised,0);
+  const investors = 1284;
+  return '<div class="wrap">'+
+    '<section class="hero"><div class="hero-grid">'+
+      '<div>'+
+        '<div class="eyebrow">Property crowdfunding &middot; Namibia</div>'+
+        '<h1>Own a piece of the country you live in.</h1>'+
+        '<p class="lead">Tunga lets Namibians buy into residential property from N$5,000 — one building at a time, through a licensed custodian, under NAMFISA supervision.</p>'+
+        '<div class="hero-cta"><a class="btn btn-primary" href="#/offering/khomasdal">View live offerings</a><a class="btn btn-ghost" href="#/rulebook">How the rules work</a></div>'+
+      '</div>'+
+      '<div class="hero-img"><img src="images/windhoek.jpg" alt="Residential neighbourhood in Windhoek at golden hour"></div>'+
+    '</div>'+
+      '<div class="statstrip">'+
+        '<div><div class="k">'+NS(totalRaised)+'</div><div class="l">Raised across 4 offerings</div></div>'+
+        '<div><div class="k">'+investors.toLocaleString('en-US')+'</div><div class="l">Registered investors</div></div>'+
+        '<div><div class="k">N$10m</div><div class="l">Maximum raise per issuer, per year</div></div>'+
+        '<div><div class="k">48 hrs</div><div class="l">Cooling-off on every subscription</div></div>'+
+      '</div>'+
+    '</section>'+
+    '<div class="warn-banner mt8"><div class="ic">!</div><p><strong>Investing in early-stage and small businesses is risky. You should only invest money that you can afford to lose.</strong> You are responsible for conducting your own due diligence on the companies, for diversifying your overall investment portfolio and for seeking out advice from qualified financial advisors.</p></div>'+
+    '<section><div class="between" style="margin-bottom:24px"><h2>Live offerings</h2><span class="badge green">'+live.length+' open now</span></div>'+
+      '<div class="grid3">'+live.map(cardHTML).join('')+'</div>'+
+    '</section>'+
+    '<section style="padding-top:8px"><h2 style="margin-bottom:26px">How a Tunga raise works</h2>'+
+      '<div class="grid3">'+
+        step(1,'A property SPV is set up','Every building gets its own company. It can raise at most N$10 million in any twelve-month period — the ceiling set by NAMFISA.')+
+        step(2,'The offering document is filed','Full disclosure under Annexure 1: the property, the numbers, the debt, the risks, the exit. Filed with NAMFISA 48 hours before it goes public.')+
+        step(3,'Investors subscribe, money sits in trust','Your money goes to a licensed bank\'s segregated trust account — never to us. You get 48 hours to change your mind.')+
+        step(4,'Funds release on target','If the round hits its target, the custodian releases funds to the SPV within five business days. If it misses, every cent is refunded within 48 hours.')+
+      '</div>'+
+    '</section>'+
+    '<section style="padding-top:8px"><div class="panel" style="background:var(--surface2);border-color:var(--line)">'+
+      '<div class="between"><div><h3>What this platform cannot do</h3><div class="desc" style="margin-bottom:0">Section 28 of the Guidelines, enforced in software.</div></div></div>'+
+      '<div class="grid3 mt24">'+
+        '<div><div class="badge red">Prohibited</div><p style="font-size:13.5px;color:var(--ink2);margin-top:8px">Give investment advice. We present facts, we do not tell you what to buy.</p></div>'+
+        '<div><div class="badge red">Prohibited</div><p style="font-size:13.5px;color:var(--ink2);margin-top:8px">Hold your money. A licensed bank custodian holds every cent in a segregated trust account.</p></div>'+
+        '<div><div class="badge red">Prohibited</div><p style="font-size:13.5px;color:var(--ink2);margin-top:8px">Promise a return. Any figure you see is a projection, not a guarantee.</p></div>'+
+      '</div>'+
+    '</div></section>'+
+  '</div>';
+}
+
+function step(n,t,d){
+  return '<div class="card" style="padding:24px"><div class="badge sand">Step '+n+'</div><h3 style="margin:14px 0 8px;font-size:18px">'+t+'</h3><p style="font-size:13.5px;color:var(--ink2)">'+d+'</p></div>';
+}
+
+function cardHTML(o){
+  const st = o.status==='live' ? (daysLeft(o)<=10?'<span class="badge amber">'+daysLeft(o)+' days left</span>':'<span class="badge green">Open</span>')
+    : o.status==='review' ? '<span class="badge amber">Under review</span>'
+    : '<span class="badge">Closed</span>';
+  return '<a class="card" href="#/offering/'+o.id+'">'+
+    '<div class="card-top"><img src="'+o.img+'" alt="'+o.title+', '+o.place+'" loading="lazy" onerror="this.remove()"><span class="loc">'+o.region+'</span></div>'+
+    '<div class="card-body">'+
+      '<div class="badges">'+st+'<span class="badge">'+(o.type==='equity'?'Equity':'Secured note')+'</span></div>'+
+      '<h3>'+o.title+'</h3>'+
+      '<div class="sub">'+o.place+' &middot; '+o.property.units+' units</div>'+
+      '<div class="progress"><i style="width:'+(pct(o)*100).toFixed(1)+'%"></i></div>'+
+      '<div class="pmeta"><span><b>'+NS(o.raised)+'</b> raised</span><span>of '+NS(o.target)+'</span></div>'+
+      '<div class="raise">'+NS(o.unitPrice)+' <span>per unit &middot; '+PC(o.projected)+' projected p.a.</span></div>'+
+    '</div></a>';
+}
+
+/* ---------- offering detail ---------- */
+function renderOffering(id){
+  const o = off(id);
+  if(!o) return '<div class="wrap"><section><h2>Offering not found</h2></section></div>';
+  const tab = S.tab || 'overview';
+  return '<div class="wrap"><section style="padding-top:36px">'+
+    '<a href="#/" style="font-size:13px;color:var(--muted)">&larr; All offerings</a>'+
+    '<div class="between mt16" style="align-items:flex-start">'+
+      '<div><div class="badges"><span class="badge green">'+(o.status==='live'?'Open for subscription':o.status==='review'?'Under review':'Closed')+'</span><span class="badge">'+(o.type==='equity'?'Equity':'Secured note')+'</span><span class="badge">'+(o.type==='equity'?'Annexure 1 — equity':'Annexure 1 — debt')+'</span></div>'+
+      '<h1 style="font-size:38px">'+o.title+'</h1>'+
+      '<p style="color:var(--muted);margin-top:6px">'+o.place+' &middot; '+o.spv+' &middot; Reg. '+o.regNo+'</p></div>'+
+    '</div>'+
+    '<div class="detail-hero"><img src="'+o.img+'" alt="'+o.title+', '+o.place+'" onerror="this.remove()"><span class="cap">Illustrative image</span></div>'+
+    '<div class="detail-grid mt32">'+
+      '<div>'+
+        '<div class="tabs">'+['overview','property','financials','legal','fees','risks','updates'].map(t=>
+          '<button class="'+(tab===t?'on':'')+'" onclick="setTab(\''+t+'\')">'+({overview:'Overview',property:'The property',financials:'Financials',legal:'Legal & cap table',fees:'Costs & fees',risks:'Risks',updates:'Updates'})[t]+'</button>').join('')+'</div>'+
+        '<div class="prose">'+tabBody(o,tab)+'</div>'+
+      '</div>'+
+      '<div class="sticky">'+investPanel(o)+'</div>'+
+    '</div>'+
+  '</section></div>';
+}
+
+function setTab(t){ S.tab = t; render(); }
+
+function feeModel(o){
+  const raised = o.target;
+  const price = o.property.value;
+  const rent = (o.projections[0] && o.projections[0].revenue) || 0;
+  const exitValue = price * 1.25;
+  return {
+    raised:raised, price:price, rent:rent, exitValue:exitValue,
+    platform: raised * 0.01,
+    structure: raised * 0.01,
+    sourcing: price * 0.02,
+    mgmt: rent * 0.08,
+    disposal: exitValue * 0.01,
+    oneOff: raised * 0.02 + price * 0.02
+  };
+}
+
+function feesBody(o){
+  const m = feeModel(o);
+  const ex = 50000;
+  const share = ex / o.target;
+  const oneOffShare = m.oneOff * share;
+  const mgmtShare = m.mgmt * 8.5 * share;
+  const disposalShare = m.disposal * share;
+  const total = oneOffShare + mgmtShare + disposalShare;
+  const pct = total / ex;
+
+  const row = (a,b,c,d,e) => '<tr><td>'+a+'</td><td style="font-size:13px;color:var(--muted)">'+b+'</td><td class="num">'+c+'</td><td style="font-size:13px;color:var(--muted)">'+d+'</td><td style="font-size:12px">'+(e?'<span class="badge amber">Related</span>':'<span class="badge">Third party</span>')+'</td></tr>';
+
+  return '<div class="notice info">Every fee charged in this offering, who receives it, and what it costs you. Nothing here is buried in an annexure.</div>'+
+    '<h3>Fees paid to the platform and related parties</h3>'+
+    '<table><thead><tr><th>Fee</th><th>Basis</th><th class="num">Amount</th><th>Timing</th><th>Status</th></tr></thead><tbody>'+
+    row('Platform fee','1.0% of funds raised',NS(m.platform),'On close',1)+
+    row('Structuring and arrangement','1.0% of funds raised',NS(m.structure),'On close',1)+
+    row('Sourcing commission','2.0% of purchase price',NS(m.sourcing),'At acquisition',1)+
+    row('Property management','8.0% of rent collected',NS(m.mgmt)+' a year','Quarterly',1)+
+    row('Disposal fee','1.0% of sale price',NS(m.disposal),'At exit',1)+
+    row('Promote','20% of profit above an 8% preferred return','Variable','At exit',1)+
+    '</tbody></table>'+
+    '<div class="notice warn mt16"><strong>One-off fees total '+NS(m.oneOff)+'</strong> — that is '+(m.oneOff/m.raised*100).toFixed(1)+'% of the entire amount being raised, taken before a single rand of rent is collected.</div>'+
+    '<h3>Third-party transaction costs</h3>'+
+    '<p>Transfer duty, conveyancing and registration come to approximately N$1,450,000. These are already included in the use-of-funds table and are paid to the Receiver of Revenue and the conveyancer, not to us.</p>'+
+    '<h3>What this costs a N$50,000 investment</h3>'+
+    '<div class="kv">'+
+      '<div>Your share of the raise</div><div>'+(share*100).toFixed(3)+'%</div>'+
+      '<div>One-off fees attributable to you</div><div>'+NS(oneOffShare)+'</div>'+
+      '<div>Property management over 7 years</div><div>'+NS(mgmtShare)+'</div>'+
+      '<div>Disposal fee at exit</div><div>'+NS(disposalShare)+'</div>'+
+      '<div>Total fees over the full term</div><div>'+NS(total)+'</div>'+
+      '<div>As a share of your investment</div><div style="color:var(--red)">'+(pct*100).toFixed(1)+'%</div>'+
+    '</div>'+
+    '<div style="display:flex;height:10px;border-radius:99px;overflow:hidden;background:var(--surface2);margin:6px 0 8px">'+
+      '<i style="width:'+((1-pct)*100).toFixed(0)+'%;background:var(--green)"></i>'+
+      '<i style="width:'+(pct*100).toFixed(0)+'%;background:var(--sand)"></i>'+
+    '</div>'+
+    '<p style="font-size:12.5px;color:var(--muted)">Green is capital that stays working for you. Sand is fees.</p>'+
+    '<div class="notice warn">In practice this means the building has to appreciate by roughly '+(pct*100).toFixed(0)+'% over seven years before these fees are recovered and you are ahead. That is before inflation, and before any shortfall in rent.</div>'+
+    '<h3>Related party disclosure</h3>'+
+    '<p>The sourcing commission and the property management fee are paid to the sponsor\'s estate agency. The platform fee and structuring fee are paid to the platform operator. The sponsor is a director of the issuer and holds equity in it. These relationships are disclosed in section 8 of the offering document and are approved by the platform\'s independent non-executive director, who holds no economic interest in this offering.</p>'+
+    '<h3>How this compares</h3>'+
+    '<p>A listed Namibian property fund typically charges under 1% a year, with no sourcing commission, no disposal fee and no promote. You are paying more here because you are buying a single building directly rather than a share of a large diversified portfolio — and because the work of finding, structuring and managing that one building has to be paid for by that one building.</p>'+
+    '<h3>If the deal underperforms</h3>'+
+    '<p>Fees are paid at fixed points and are not reduced if the property performs badly. A disposal fee is only charged if there is a sale, and the promote only applies above the 8% preferred return. But the platform, structuring, sourcing and management fees are earned regardless of your outcome. You bear the downside; we are paid either way.</p>';
+}
+
+function tabBody(o,tab){
+  if(tab==='overview'){
+    return '<h3>The business</h3><p>'+(o.type==='equity'
+      ? 'The SPV acquires and holds a '+o.property.units+'-unit residential property in '+o.place+', funded by a combination of bank debt and equity raised on Tunga. Rental income services the debt and funds quarterly distributions to shareholders.'
+      : 'The SPV lends to the property owner on a five-year secured note, funded by investors on Tunga. Interest is paid quarterly from rental income; the note is secured by a second-ranking mortgage bond over the property.')+'</p>'+
+      '<h3>Use of funds</h3><table><thead><tr><th>Item</th><th class="num">Amount</th><th class="num">Share</th></tr></thead><tbody>'+
+      o.useOfFunds.map(u=>'<tr><td>'+u.label+'</td><td class="num">'+NS(u.amount)+'</td><td class="num">'+(u.amount/o.useOfFunds.reduce((a,b)=>a+b.amount,0)*100).toFixed(1)+'%</td></tr>').join('')+
+      '</tbody></table>'+
+      '<h3>Management</h3><p>The SPV is managed by a two-director board. The sponsor brings eleven years of residential property management experience in '+o.region+'. Property management is outsourced to a registered managing agent under a three-year mandate.</p>'+
+      '<h3>Exit</h3><p>Planned exit after '+o.holdYears+' years through a sale of the property or a refinance that returns capital. There is no guaranteed exit and no obligation on the SPV to buy back your units. Secondary transfers may be facilitated through the platform\'s trading facility once operational, subject to NAMFISA approval.</p>';
+  }
+  if(tab==='property'){
+    const p = o.property;
+    return '<h3>Physical asset disclosure</h3><p>Required under Annexure 1 (additional requirements for physical assets).</p>'+
+      '<div class="kv">'+
+        '<div>Location</div><div>'+o.place+', Namibia</div>'+
+        '<div>Units</div><div>'+p.units+' residential units</div>'+
+        '<div>Gross lettable area</div><div>'+p.size+'</div>'+
+        '<div>Year built</div><div>'+p.built+'</div>'+
+        '<div>Tenure</div><div>'+p.tenure+'</div>'+
+        '<div>Independent valuation</div><div>'+NS(p.value)+'</div>'+
+        '<div>Senior debt</div><div>'+NS(p.debt)+'</div>'+
+        '<div>Current occupancy</div><div>'+p.occupancy+'%</div>'+
+      '</div>'+
+      '<h3>Ownership formula</h3><p>Each unit represents an equal fractional economic interest in the SPV. Units issued = '+Math.round(o.target/o.unitPrice).toLocaleString('en-US')+'. Your share of the SPV = (units held &times; '+NS(o.unitPrice)+') &divide; '+NS(o.target)+'. Distributions are paid pro rata to units held.</p>'+
+      '<h3>Insurance</h3><p>Building, public liability and loss-of-rent cover in place with a Namibian-registered insurer. The policy is ceded to the senior lender and a copy is available in the data room.</p>';
+  }
+  if(tab==='financials'){
+    return '<h3>Three-year projections</h3><p>Prepared by the issuer on the assumptions disclosed in the offering document. These are projections, not forecasts of actual results.</p>'+
+      '<table><thead><tr><th>Year</th><th class="num">Revenue</th><th class="num">Operating cost</th><th class="num">Net operating income</th><th class="num">Distribution</th></tr></thead><tbody>'+
+      o.projections.map(p=>'<tr><td>'+p.year+'</td><td class="num">'+NS(p.revenue)+'</td><td class="num">'+NS(p.opex)+'</td><td class="num">'+NS(p.noi)+'</td><td class="num">'+NS(p.dist)+'</td></tr>').join('')+
+      '</tbody></table>'+
+      '<h3>Key assumptions</h3><ul>'+
+      '<li>Occupancy held at or above '+o.property.occupancy+'% through the projection period</li>'+
+      '<li>Rental escalation of 7% per annum on renewal</li>'+
+      '<li>Senior debt at prime-linked rate, interest only for the first 24 months</li>'+
+      '<li>Property management fee of 8% of collected rent, plus a 5% maintenance reserve</li>'+
+      '</ul>'+
+      '<h3>Financial ratios</h3><div class="kv">'+
+      '<div>Loan-to-value (senior debt)</div><div>'+(o.property.debt/o.property.value*100).toFixed(1)+'%</div>'+
+      '<div>Projected debt service cover</div><div>1.34&times;</div>'+
+      '<div>Projected current ratio</div><div>1.8&times;</div>'+
+      '<div>Projected return on equity</div><div>'+PC(o.projected)+' p.a.</div>'+
+      '</div>'+
+      '<h3>Outstanding debt</h3><p>Senior facility of '+NS(o.property.debt)+' from a Bank of Namibia-licensed lender, secured by a first-ranking mortgage bond over the property. No other off-balance-sheet liabilities. No shareholder loans rank ahead of investors.</p>';
+  }
+  if(tab==='legal'){
+    return '<h3>Terms of investment</h3><div class="kv">'+
+      '<div>Instrument</div><div>'+(o.type==='equity'?'Ordinary shares in the SPV':'Secured note, 5-year term')+'</div>'+
+      '<div>Price per unit</div><div>'+NS(o.unitPrice)+'</div>'+
+      '<div>Minimum subscription</div><div>'+NS(o.minTicket)+'</div>'+
+      '<div>Target raise</div><div>'+NS(o.target)+'</div>'+
+      '<div>Voting</div><div>One vote per unit on reserved matters</div>'+
+      '<div>Distributions</div><div>Quarterly, from operating cash flow</div>'+
+      '<div>Transfer restrictions</div><div>Board consent required; no transfer in first 12 months</div>'+
+      '</div>'+
+      '<h3>Capitalisation table</h3><table><thead><tr><th>Holder</th><th class="num">Before</th><th class="num">After</th></tr></thead><tbody>'+
+      o.capTable.map(c=>'<tr><td>'+c.holder+'</td><td class="num">'+c.before+'</td><td class="num">'+c.after+'</td></tr>').join('')+
+      '</tbody></table>'+
+      '<h3>Governance</h3><ul><li>Annual general meeting open to all shareholders, per the Companies Act 2004</li><li>Audited financial statements within 90 days of financial year end</li><li>Quarterly progress updates through the platform</li><li>Reserved matters require 75% approval, including any new debt above N$2m</li></ul>'+
+      '<h3>Litigation</h3><p>The SPV and its directors confirm no pending or threatened litigation.</p>'+
+      '<h3>Documents in the data room</h3><ul>'+o.docs.map(d=>'<li>'+d+'</li>').join('')+'</ul>';
+  }
+  if(tab==='fees'){ return feesBody(o); }
+  if(tab==='risks'){
+    return '<div class="notice warn">Investing in debt and equity securities of small businesses and early-stage businesses is risky. Issuers may default and you may lose some or all of your money. Make sure that you diversify your investments and only invest money that you can afford to lose.</div>'+
+      '<h3>Specific risks</h3><ul>'+o.risks.map(r=>'<li>'+r+'</li>').join('')+'</ul>'+
+      '<h3>Risks common to all crowdfunding investments</h3><ul>'+
+      '<li><strong>Loss of capital.</strong> The amount invested is not guaranteed. If the SPV fails or is liquidated, your units can lose all their value.</li>'+
+      '<li><strong>Liquidity risk.</strong> Units are not listed and cannot be readily resold. They may be immobilised for several years.</li>'+
+      '<li><strong>Valuation risk.</strong> Valuations are estimates based on the valuer\'s judgement and are never precise.</li>'+
+      '<li><strong>Dilution.</strong> Further capital raises by the SPV may dilute your holding.</li>'+
+      '</ul>';
+  }
+  return o.updates.length
+    ? o.updates.map(u=>'<h3>'+u.title+'</h3><p style="font-size:12.5px;color:var(--muted);margin-bottom:6px">'+fmtDate(u.date)+'</p><p>'+u.body+'</p>').join('')
+    : '<p style="color:var(--muted)">No updates published yet. Issuers of equity instruments must publish a progress update at least once a quarter.</p>';
+}
+
+function investPanel(o){
+  if(o.status!=='live'){
+    return '<div class="invest-card"><div class="badge amber">'+(o.status==='review'?'Under review':'Closed')+'</div><p style="font-size:13.5px;color:var(--ink2);margin-top:12px">'+(o.status==='review'?'This offering is being reviewed by the platform. It is not open for subscription.':'This round has closed.')+'</p></div>';
+  }
+  return '<div class="invest-card">'+
+    '<div class="big">'+NS(o.raised)+'</div>'+
+    '<div class="of">raised of '+NS(o.target)+' target</div>'+
+    '<div class="progress"><i style="width:'+(pct(o)*100).toFixed(1)+'%"></i></div>'+
+    '<div class="pmeta"><span>'+PC(pct(o))+' funded</span><span><b>'+daysLeft(o)+'</b> days left</span></div>'+
+    '<div class="mt16">'+
+      '<div class="rows"><span>Unit price</span><span>'+NS(o.unitPrice)+'</span></div>'+
+      '<div class="rows"><span>Minimum</span><span>'+NS(o.minTicket)+'</span></div>'+
+      '<div class="rows"><span>'+(o.type==='equity'?'Projected distribution':'Interest rate')+'</span><span>'+PC(o.projected)+' p.a.</span></div>'+
+      '<div class="rows"><span>Term</span><span>'+o.holdYears+' years</span></div>'+
+      '<div class="rows"><span>Units remaining</span><span>'+Math.round((o.target-o.raised)/o.unitPrice).toLocaleString('en-US')+'</span></div>'+
+    '</div>'+
+    '<button class="btn btn-primary mt16" style="width:100%" onclick="openInvest(\''+o.id+'\')">Invest in this property</button>'+
+    '<p style="font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.6">Capital at risk. Your money is held by a licensed custodian bank, not by Tunga. 48-hour cooling-off applies.</p>'+
+  '</div>';
+}
+
+/* ---------- invest flow ---------- */
+function openInvest(id){
+  S.modal = {type:'invest', offeringId:id, step:1, amount:0, classification:me().classification, netWorth:me().netWorth, acks:{a:false,b:false,c:false,d:false}, error:''};
+  renderModal();
+}
+function closeModal(){ S.modal=null; document.getElementById('modal-root').innerHTML=''; }
+
+function modalErr(){ const m=S.modal; return m.error?'<div class="notice err">'+m.error+'</div>':''; }
+
+function renderModal(){
+  const m = S.modal;
+  if(!m){ document.getElementById('modal-root').innerHTML=''; return; }
+  const o = off(m.offeringId);
+  let body='';
+  if(m.step===1){
+    const u = {...me(), classification:m.classification, netWorth:m.netWorth, ytd:me().ytd};
+    const left = capLeft(u);
+    const remainingValue = o.target - o.raised;
+    body =
+      '<h3>Invest in '+o.title+'</h3>'+
+      '<p style="font-size:13px;color:var(--muted)">'+NS(o.unitPrice)+' per unit &middot; minimum '+NS(o.minTicket)+'</p>'+
+      '<div class="stepper"><i class="on"></i><i></i><i></i></div>'+
+      modalErr()+
+      '<div class="notice info">Your remaining allowance under the investor limit is <strong>'+NS(left)+'</strong> for this 12-month period.</div>'+
+      '<div class="field"><label>Amount to invest (N$)</label><input id="amt" type="number" min="'+o.minTicket+'" step="1000" value="'+(m.amount||o.minTicket)+'" oninput="setAmount(this.value)"></div>'+
+      '<div class="chips"><button onclick="quick('+o.minTicket+')">'+NS(o.minTicket)+'</button><button onclick="quick(25000)">N$25,000</button><button onclick="quick(50000)">N$50,000</button><button onclick="quick('+Math.floor(left)+')">Max allowed</button></div>'+
+      '<div class="rows mt24"><span>Units purchased</span><span id="su">'+(m.amount/o.unitPrice).toFixed(2)+'</span></div>'+
+      '<div class="rows"><span>Ownership of SPV</span><span id="so">'+(m.amount/o.target*100).toFixed(3)+'%</span></div>'+
+      '<div class="rows"><span>Projected annual distribution</span><span id="sd">'+NS(m.amount*o.projected)+'</span></div>'+
+      '<div class="between mt24"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="step1()">Continue</button></div>';
+  } else if(m.step===2){
+    body =
+      '<h3>Eligibility and risk acknowledgement</h3>'+
+      '<p style="font-size:13px;color:var(--muted)">Sections 11, 34 and 35 of the Guidelines.</p>'+
+      '<div class="stepper"><i class="on"></i><i class="on"></i><i></i></div>'+
+      modalErr()+
+      '<div class="field"><label>Investor category</label><select onchange="setClass(this.value)">'+
+        '<option value="retail"'+(m.classification==='retail'?' selected':'')+'>Retail investor</option>'+
+        '<option value="sophisticated"'+(m.classification==='sophisticated'?' selected':'')+'>Sophisticated investor</option>'+
+        '<option value="hnwi"'+(m.classification==='hnwi'?' selected':'')+'>High net worth individual</option>'+
+      '</select></div>'+
+      '<div class="field"><label>Declared net worth, excluding pension and primary residence (N$)</label><input type="number" value="'+m.netWorth+'" oninput="setNW(this.value)"></div>'+
+      '<div class="notice '+(capLeft({...me(),classification:m.classification,netWorth:m.netWorth})>=m.amount?'info':'err')+'">Limit for this category: <strong>'+NS(capFor({classification:m.classification,netWorth:m.netWorth}))+'</strong> per year'+(m.classification==='retail'?' (lesser of 10% of net worth or N$100,000)':' (10% of net worth)')+'.</div>'+
+      '<div style="font-size:13px;color:var(--ink2);margin:18px 0 4px">I confirm that:</div>'+
+      chk('a','I understand this is a risky investment.')+
+      chk('b','I can absorb the complete loss of the amount I am investing.')+
+      chk('c','I understand I may not be able to sell these securities, and may be locked in for years.')+
+      chk('d','I have been given the disclosures for this offer and have read the risk warnings.')+
+      '<div class="between mt24"><button class="btn btn-ghost" onclick="stepBack()">Back</button><button class="btn btn-primary" onclick="step2()">Continue</button></div>';
+  } else if(m.step===3){
+    body =
+      '<h3>Confirm your subscription</h3>'+
+      '<p style="font-size:13px;color:var(--muted)">Check the details before you commit.</p>'+
+      '<div class="stepper"><i class="on"></i><i class="on"></i><i class="on"></i></div>'+
+      '<div class="kv">'+
+        '<div>Offering</div><div>'+o.title+'</div>'+
+        '<div>Instrument</div><div>'+(o.type==='equity'?'Ordinary shares':'Secured note')+'</div>'+
+        '<div>Amount</div><div>'+NS(m.amount)+'</div>'+
+        '<div>Units</div><div>'+(m.amount/o.unitPrice).toFixed(2)+'</div>'+
+        '<div>Custodian</div><div>Bank Windhoek Nominees (illustrative)</div>'+
+        '<div>Investor category</div><div>'+({retail:'Retail',sophisticated:'Sophisticated',hnwi:'High net worth'})[m.classification]+'</div>'+
+      '</div>'+
+      '<div class="notice warn">You have <strong>48 hours</strong> from the moment you confirm to withdraw without restriction. After the offer closes, you cannot cancel.</div>'+
+      '<div class="between mt24"><button class="btn btn-ghost" onclick="stepBack()">Back</button><button class="btn btn-primary" onclick="confirmSub()">Confirm subscription</button></div>';
+  } else {
+    const sub = S.subs.find(s=>s.id===m.subId);
+    body =
+      '<h3>Subscription received</h3>'+
+      '<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">'+NS(sub.amount)+' allocated to '+o.title+'. Your money is held in a segregated trust account at the custodian bank until the round closes.</p>'+
+      '<div class="notice info mt16"><strong>Cooling-off:</strong> you can cancel without restriction for the next 48 hours. After that your subscription is binding until the round closes.</div>'+
+      '<div class="rows"><span>Cooling-off expires</span><span>'+new Date(sub.createdAt+2*D).toLocaleString('en-GB')+'</span></div>'+
+      '<div class="rows"><span>Reference</span><span style="font-family:var(--sans)">'+sub.id.toUpperCase()+'</span></div>'+
+      '<div class="between mt24"><button class="btn btn-ghost" onclick="closeModal();location.hash=\'#/portfolio\'">View portfolio</button><button class="btn btn-primary" onclick="closeModal()">Done</button></div>';
+  }
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal"><button class="close" onclick="closeModal()">&times;</button>'+body+'</div></div>';
+}
+
+function chk(k,label){
+  const m=S.modal;
+  return '<label class="check"><input type="checkbox" '+(m.acks[k]?'checked':'')+' onchange="setAck(\''+k+'\',this.checked)"><span>'+label+'</span></label>';
+}
+function setAck(k,v){ S.modal.acks[k]=v; }
+function setAmount(v){ S.modal.amount = Number(v)||0; updSummary(); }
+function updSummary(){
+  const m=S.modal; if(!m) return;
+  const o=off(m.offeringId);
+  const su=document.getElementById('su'); if(!su) return;
+  su.textContent=(m.amount/o.unitPrice).toFixed(2);
+  document.getElementById('so').textContent=(m.amount/o.target*100).toFixed(3)+'%';
+  document.getElementById('sd').textContent=NS(m.amount*o.projected);
+}
+function quick(v){ S.modal.amount = Math.max(0,v); renderModal(); }
+function setClass(v){ S.modal.classification=v; renderModal(); }
+function setNW(v){ S.modal.netWorth=Number(v)||0; }
+function stepBack(){ S.modal.step--; S.modal.error=''; renderModal(); }
+
+function step1(){
+  const m=S.modal, o=off(m.offeringId);
+  const u={...me(), classification:m.classification, netWorth:m.netWorth};
+  if(!m.amount || m.amount < o.minTicket){ m.error='The minimum subscription for this offering is '+NS(o.minTicket)+'.'; return renderModal(); }
+  if(m.amount > capLeft(u)){ m.error='This exceeds your remaining allowance of '+NS(capLeft(u))+' for the 12-month period. Section 11 caps your total annual investment.'; return renderModal(); }
+  if(m.amount > o.target - o.raised){ m.error='Only '+NS(o.target-o.raised)+' of the target remains. Subscriptions above this are rejected under section 17.'; return renderModal(); }
+  m.error=''; m.step=2; renderModal();
+}
+function step2(){
+  const m=S.modal;
+  if(!(m.acks.a&&m.acks.b&&m.acks.c&&m.acks.d)){ m.error='All four acknowledgements are required before you can invest (section 35).'; return renderModal(); }
+  m.error=''; m.step=3; renderModal();
+}
+function confirmSub(){
+  const m=S.modal, o=off(m.offeringId), u=me();
+  const id='s'+(S.subs.length+1);
+  S.subs.push({id, offeringId:o.id, investorId:u.id, amount:m.amount, units:m.amount/o.unitPrice, status:'cooling', createdAt:now(), settledAt:null});
+  o.raised += m.amount;
+  u.ytd += m.amount;
+  u.classification = m.classification;
+  u.netWorth = m.netWorth;
+  audit('Subscription of '+NS(m.amount)+' in '+o.title+'. Cooling-off until '+new Date(now()+2*D).toLocaleString('en-GB')+'.');
+  m.step=4; m.subId=id; save(); renderModal(); render();
+}
+
+/* ---------- portfolio ---------- */
+function renderPortfolio(){
+  const u = me();
+  const mine = S.subs.filter(s=>s.investorId===u.id);
+  const confirmed = mine.filter(s=>s.status==='confirmed');
+  const invested = confirmed.reduce((a,s)=>a+s.amount,0);
+  const cooling = mine.filter(s=>s.status==='cooling');
+  const received = confirmed.reduce((a,s)=>a+(s.distributions||0),0);
+  const valueChange = confirmed.reduce((a,s)=>a+(s.valueChange||0),0);
+  const valueNow = invested + valueChange;
+  const totalRet = invested ? (received + valueChange)/invested : 0;
+  const since = confirmed.length ? Math.min.apply(null, confirmed.map(s=>s.createdAt)) : null;
+  return '<div class="wrap"><section style="padding-top:40px">'+
+    '<div class="between" style="align-items:flex-start">'+
+      '<div><h1 style="font-size:36px">My portfolio</h1>'+
+      '<p style="color:var(--muted);margin-top:6px">'+u.name+' &middot; '+({retail:'Retail investor',sophisticated:'Sophisticated investor',hnwi:'High net worth individual'})[u.classification]+' &middot; <span class="badge">'+NS(capLeft(u))+' allowance left this year</span></p></div>'+
+      '<button class="btn btn-ghost btn-sm" onclick="resetDemo()">Reset demo data</button>'+
+    '</div>'+
+    '<div class="kpi mt32">'+
+      '<div class="k"><div class="v">'+NS(invested)+'</div><div class="l">Invested</div></div>'+
+      '<div class="k"><div class="v">'+NS(received)+'</div><div class="l">Distributions received</div></div>'+
+      '<div class="k"><div class="v">'+NS(valueNow)+'</div><div class="l">Current value</div></div>'+
+      '<div class="k"><div class="v" style="color:'+(totalRet>=0?'var(--green)':'var(--red)')+'">'+(totalRet>=0?'+':'')+(totalRet*100).toFixed(1)+'%</div><div class="l">Total return'+(since?' since '+new Date(since).toLocaleDateString('en-GB',{month:'short',year:'numeric'}):'')+'</div></div>'+
+    '</div>'+
+    (cooling.length?'<div class="panel"><h3>Cooling-off period</h3><div class="desc">Section 22 — you may cancel without restriction within 48 hours of subscribing.</div>'+
+      cooling.map(s=>{
+        const o=off(s.offeringId); const left=(s.createdAt+2*D)-now();
+        const h=Math.max(0,Math.floor(left/3600000)); const mn=Math.max(0,Math.floor((left%3600000)/60000));
+        const expired = left<=0;
+        return '<div class="between" style="padding:14px 0;border-bottom:1px solid var(--line)">'+
+          '<div><div style="font-size:14px;font-weight:500">'+o.title+'</div><div style="font-size:12.5px;color:var(--muted)">'+NS(s.amount)+' &middot; '+(expired?'cooling-off ended':'expires '+new Date(s.createdAt+2*D).toLocaleString('en-GB'))+'</div></div>'+
+          '<div class="row">'+(expired
+            ? '<span class="badge">Binding until close</span>'
+            : '<span class="clock soon"><span class="dot"></span>'+h+'h '+mn+'m left</span><button class="btn btn-danger btn-sm" onclick="cancelSub(\''+s.id+'\')">Cancel</button>')+
+          '</div>'+
+        '</div>';
+      }).join('')+'</div>':'')+
+    '<div class="panel"><h3>What your holdings have earned</h3><div class="desc">Distributions actually paid to you, plus the change in value since the last independent valuation.</div>'+
+      (confirmed.length?'<table><thead><tr><th>Offering</th><th class="num">Invested</th><th class="num">Received</th><th class="num">Value change</th><th class="num">Value now</th><th class="num">Return</th></tr></thead><tbody>'+
+      confirmed.map(s=>{
+        const o=off(s.offeringId);
+        const r=s.distributions||0, vc=s.valueChange||0;
+        const ret=(r+vc)/s.amount;
+        return '<tr><td>'+o.title+'<div style="font-size:12px;color:var(--muted)">'+o.place+' &middot; '+o.property.units+' units &middot; '+(s.nextDist?'next distribution '+fmtDate(s.nextDist):'next distribution to be announced')+'</div></td>'+
+          '<td class="num">'+NS(s.amount)+'</td>'+
+          '<td class="num">'+NS(r)+'</td>'+
+          '<td class="num" style="color:'+(vc>=0?'var(--green)':'var(--red)')+'">'+(vc>=0?'+':'')+NS(vc)+'</td>'+
+          '<td class="num">'+NS(s.amount+vc)+'</td>'+
+          '<td class="num" style="color:'+(ret>=0?'var(--green)':'var(--red)')+'">'+(ret>=0?'+':'')+(ret*100).toFixed(1)+'%</td></tr>';
+      }).join('')+
+      '</tbody></table>':'<p style="font-size:13.5px;color:var(--muted)">No holdings yet.</p>')+
+      '<p style="font-size:12px;color:var(--muted);margin-top:14px;line-height:1.6">Valuations are carried out by an independent professional every 12 months and are estimates, not prices you are guaranteed to achieve. Past performance does not indicate future results. Distributions are not guaranteed and may be reduced or suspended if the property underperforms.</p>'+
+    '</div>'+
+    '<div class="panel"><h3>Activity</h3><div class="desc">Every action on your account is logged for seven years, as required by section 46(5).</div>'+
+      '<table><tbody>'+S.audit.slice(0,8).map(a=>'<tr><td style="width:120px;color:var(--muted);font-size:12.5px">'+fmtDate(a.at)+'</td><td>'+a.what+'</td></tr>').join('')+'</tbody></table>'+
+    '</div>'+
+  '</section></div>';
+}
+
+function cancelSub(id){
+  const s = S.subs.find(x=>x.id===id); if(!s) return;
+  if(now() > s.createdAt + 2*D){ alert('The 48-hour cooling-off period has expired. This subscription can no longer be cancelled.'); return; }
+  s.status='cancelled';
+  const o=off(s.offeringId); o.raised -= s.amount;
+  const u=me(); u.ytd -= s.amount;
+  audit('Subscription '+NS(s.amount)+' in '+o.title+' cancelled within cooling-off. Refund instructed to custodian within 48 hours.');
+  save(); render();
+}
+
+/* ---------- issuer ---------- */
+function renderIssuer(){
+  const o = S.offerings.find(x=>x.id==='oshakati');
+  const k = S.offerings.find(x=>x.id==='khomasdal');
+  const stage = k.status==='live'?3:k.status==='review'?2:1;
+  return '<div class="wrap"><section style="padding-top:40px">'+
+    '<h1 style="font-size:36px">Issuer dashboard</h1>'+
+    '<p style="color:var(--muted);margin-top:6px">Khomasdal Ridge SPV (Pty) Ltd &middot; Reg. 2026/0417</p>'+
+    '<div class="kpi mt32">'+
+      '<div class="k"><div class="v">'+NS(k.raised)+'</div><div class="l">Raised to date</div></div>'+
+      '<div class="k"><div class="v">'+PC(pct(k))+'</div><div class="l">Of target</div></div>'+
+      '<div class="k"><div class="v">'+daysLeft(k)+'</div><div class="l">Days left in round</div></div>'+
+      '<div class="k"><div class="v">'+NS(10000000-k.raised)+'</div><div class="l">Headroom under N$10m cap</div></div>'+
+    '</div>'+
+    '<div class="grid2 start" style="align-items:start">'+
+      '<div class="panel"><h3>Round status</h3><div class="desc">Statutory clock started when the offering document was filed.</div>'+
+        '<div class="stepline">'+
+          stepRow('done','Offering document filed','Submitted to NAMFISA 48 hours before publication (s13(1))')+
+          stepRow('done','Due diligence completed','Report submitted to NAMFISA three weeks before launch (s37(b))')+
+          stepRow('done','Approved and published','Published to investors 14 days before the offer opened (s13(3))')+
+          stepRow(stage>=3?'now':'','Funding round open','Day '+Math.min(60,60-daysLeft(k))+' of a maximum 60-day round (s15)')+
+          stepRow('','Close and release funds','Custodian releases to the SPV within five business days (s21)')+
+          stepRow('','Post-offer inspection','Within three months of close, report to NAMFISA within two weeks (s42)')+
+        '</div>'+
+      '</div>'+
+      '<div class="panel"><h3>Disclosure completeness</h3><div class="desc">Annexure 1 sections required before an offering can go live.</div>'+
+        [['Platform operator details',1],['Issuer presentation and governance',1],['Business activity and market',1],['Financial projections and ratios',1],['Use of funds and investor rights',1],['Legal information and cap table',1],['Physical asset requirements',0],['Insurance and title documents',0]]
+        .map(x=>'<div class="between" style="padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px"><span>'+x[0]+'</span>'+(x[1]?'<span class="badge green">Complete</span>':'<span class="badge amber">Outstanding</span>')+'</div>').join('')+
+        '<div class="notice warn mt16">Two sections outstanding. The offering cannot be published until both are filed.</div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="panel"><h3>Ongoing obligations</h3><div class="desc">What the issuer must deliver after the money lands. Missing any of these bars the SPV from future raises (s10(10)).</div>'+
+      '<table><thead><tr><th>Obligation</th><th>Deadline</th><th>Status</th></tr></thead><tbody>'+
+      [['Quarterly progress update to investors','Every 3 months','<span class="badge amber">Due in 9 days</span>'],
+       ['Annual audited financial statements','Within 90 days of year end','<span class="badge">Not yet due</span>'],
+       ['Annual general meeting','Per Companies Act 2004','<span class="badge">Not yet due</span>'],
+       ['Notice of material change or pivot','Immediately','<span class="badge">No events</span>'],
+       ['Post-offer inspection cooperation','Within 3 months of close','<span class="badge">Not yet due</span>']]
+      .map(r=>'<tr><td>'+r[0]+'</td><td style="color:var(--muted);font-size:13px">'+r[1]+'</td><td>'+r[2]+'</td></tr>').join('')+
+      '</tbody></table>'+
+      '<div class="field mt24"><label>Publish a quarterly update</label><textarea id="upd" rows="3" placeholder="What has changed since the last update? Occupancy, rent collected, works completed, anything material."></textarea></div>'+
+      '<button class="btn btn-primary" onclick="postUpdate()">Publish update</button>'+
+    '</div>'+
+    '<div class="panel"><h3>Second offering in review</h3><div class="desc">Oshakati North SPV — N$8.5m equity raise, submitted '+fmtDate(o.submittedAt)+'.</div>'+
+      '<div class="between" style="padding:12px 0"><span style="font-size:13.5px">Review clock (90 days, s37)</span><span class="clock '+(90-Math.floor((now()-o.submittedAt)/D)<15?'urgent':'')+'"><span class="dot"></span>'+(90-Math.floor((now()-o.submittedAt)/D))+' days remaining</span></div>'+
+      '<div class="between" style="padding:12px 0;border-top:1px solid var(--line)"><span style="font-size:13.5px">Documents outstanding</span><span class="badge amber">Quantity surveyor certificate</span></div>'+
+    '</div>'+
+  '</section></div>';
+}
+
+function stepRow(cls,t,d){ return '<div class="step '+cls+'"><div class="bullet">'+(cls==='done'?'&#10003;':'')+'</div><div><div class="st">'+t+'</div><div class="sd">'+d+'</div></div></div>'; }
+
+function postUpdate(){
+  const el = document.getElementById('upd');
+  if(!el.value.trim()) return;
+  const k = S.offerings.find(x=>x.id==='khomasdal');
+  k.updates.unshift({date:now(), title:'Quarterly update', body:el.value.trim()});
+  audit('Issuer published a quarterly update for Khomasdal Ridge.');
+  el.value=''; save(); render();
+}
+
+/* ---------- regulator console ---------- */
+function renderConsole(){
+  const tab = S.consoleTab || 'queue';
+  const review = S.offerings.filter(o=>o.status==='review');
+  const live = S.offerings.filter(o=>o.status==='live');
+  return '<div class="wrap"><section style="padding-top:40px">'+
+    '<div class="between"><div><h1 style="font-size:36px">Compliance console</h1>'+
+    '<p style="color:var(--muted);margin-top:6px">NAMFISA reporting view &middot; sandbox operator</p></div>'+
+    '<span class="badge green">All clocks live</span></div>'+
+    '<div class="kpi mt32">'+
+      '<div class="k"><div class="v">'+review.length+'</div><div class="l">Issuers awaiting decision</div></div>'+
+      '<div class="k"><div class="v">'+live.length+'</div><div class="l">Open rounds</div></div>'+
+      '<div class="k"><div class="v">'+NS(S.offerings.reduce((a,o)=>a+o.raised,0))+'</div><div class="l">Total raised</div></div>'+
+      '<div class="k"><div class="v">'+S.investors.length+'</div><div class="l">Investors onboarded</div></div>'+
+    '</div>'+
+    '<div class="tabs">'+[['queue','Review queue'],['clocks','Deadline board'],['caps','Investor limits'],['filings','Filings'],['report','NAMFISA report']].map(t=>
+      '<button class="'+(tab===t[0]?'on':'')+'" onclick="setConsoleTab(\''+t[0]+'\')">'+t[1]+'</button>').join('')+'</div>'+
+    '<div>'+consoleBody(tab)+'</div>'+
+  '</section></div>';
+}
+
+function setConsoleTab(t){ S.consoleTab=t; render(); }
+
+function consoleBody(tab){
+  if(tab==='queue'){
+    return '<div class="panel"><h3>Issuers under review</h3><div class="desc">Section 37 — the operator must decide within 90 days of receiving a complete offering document.</div>'+
+      (S.offerings.filter(o=>o.status==='review'||o.status==='live').map(o=>{
+        const elapsed = Math.floor((now()-(o.submittedAt||now()))/D);
+        const left = 90-elapsed;
+        return '<div style="padding:16px 0;border-bottom:1px solid var(--line)">'+
+          '<div class="between"><div><div style="font-size:15px;font-weight:500">'+o.title+'</div><div style="font-size:12.5px;color:var(--muted)">'+o.spv+' &middot; target '+NS(o.target)+'</div></div>'+
+          '<div class="row"><span class="clock '+(left<15?'urgent':'soon')+'"><span class="dot"></span>'+left+' days left</span>'+
+          (o.status==='review'?'<button class="btn btn-primary btn-sm" onclick="approve(\''+o.id+'\')">Approve &amp; publish</button>':'<button class="btn btn-ghost btn-sm" onclick="closeRound(\''+o.id+'\')">Close round</button>')+
+          '</div></div>'+
+          '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">'+
+            '<span class="badge green">Due diligence report filed</span>'+
+            '<span class="badge green">Directors fit &amp; proper</span>'+
+            '<span class="badge green">FIA screening clear</span>'+
+            '<span class="badge '+(o.status==='review'?'amber':'green')+'">'+(o.status==='review'?'Documents outstanding':'Published')+'</span>'+
+          '</div></div>';
+      }).join(''))+
+    '</div>'+
+    '<div class="panel"><h3>Demo controls</h3><div class="desc">Shortcuts to move the prototype through its states.</div>'+
+      '<div class="row" style="flex-wrap:wrap;gap:10px">'+
+        '<button class="btn btn-ghost btn-sm" onclick="settleAll()">Settle all cooling-off periods</button>'+
+        '<button class="btn btn-ghost btn-sm" onclick="approve(\'oshakati\')">Approve Oshakati North</button>'+
+        '<button class="btn btn-ghost btn-sm" onclick="closeRound(\'vineta\')">Close Vineta round</button>'+
+        '<button class="btn btn-ghost btn-sm" onclick="resetDemo()">Reset demo data</button>'+
+      '</div></div>';
+  }
+  if(tab==='clocks'){
+    const rows = [];
+    S.offerings.forEach(o=>{
+      if(o.status==='review'){
+        const left = 90-Math.floor((now()-o.submittedAt)/D);
+        rows.push([o.title,'Review decision (s37)','90 days from submission',left,'days']);
+      }
+      if(o.status==='live'){
+        rows.push([o.title,'Funding round closes (s15)','60 days from opening',daysLeft(o),'days']);
+      }
+      if(o.status==='closed'&&o.closedAt){
+        const due = o.closedAt + 90*D;
+        rows.push([o.title,'Post-offer inspection (s42)','Within 3 months of close',Math.ceil((due-now())/D),'days']);
+      }
+    });
+    rows.push(['All issuers','Quarterly NAMFISA report (s47)','End of each quarter',41,'days']);
+    rows.push(['Platform','Audited financial statements','3 months after year end',96,'days']);
+    return '<div class="panel"><h3>Statutory deadline board</h3><div class="desc">Every clock the Guidelines impose, computed from live timestamps.</div>'+
+      '<table><thead><tr><th>Entity</th><th>Obligation</th><th>Rule</th><th class="num">Time left</th></tr></thead><tbody>'+
+      rows.map(r=>'<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td style="color:var(--muted);font-size:13px">'+r[2]+'</td><td class="num"><span class="clock '+(r[3]<10?'urgent':r[3]<30?'soon':'')+'"><span class="dot"></span>'+r[3]+' '+r[4]+'</span></td></tr>').join('')+
+      '</tbody></table></div>';
+  }
+  if(tab==='caps'){
+    return '<div class="panel"><h3>Investor concentration limits</h3><div class="desc">Section 11 — retail capped at the lesser of 10% of net worth or N$100,000 per year; sophisticated and HNWI at 10% of net worth.</div>'+
+      '<table><thead><tr><th>Investor</th><th>Category</th><th class="num">Net worth</th><th class="num">Annual limit</th><th class="num">Invested</th><th>Utilisation</th></tr></thead><tbody>'+
+      S.investors.map(i=>{
+        const cap = capFor(i); const u = Math.min(1, i.ytd/cap);
+        return '<tr><td>'+i.name+'<div style="font-size:12px;color:var(--muted)">'+i.email+'</div></td><td><span class="badge">'+({retail:'Retail',sophisticated:'Sophisticated',hnwi:'HNWI'})[i.classification]+'</span></td><td class="num">'+NS(i.netWorth)+'</td><td class="num">'+NS(cap)+'</td><td class="num">'+NS(i.ytd)+'</td>'+
+        '<td style="width:140px"><div class="progress"><i style="width:'+(u*100).toFixed(0)+'%;background:'+(u>0.95?'var(--red)':u>0.8?'var(--sand)':'var(--green)')+'"></i></div><div style="font-size:11.5px;color:var(--muted);margin-top:4px">'+(u*100).toFixed(0)+'% of limit</div></td></tr>';
+      }).join('')+
+      '</tbody></table>'+
+      '<div class="notice warn mt16">Two investors are above 80% of their annual allowance. Further subscriptions from them will be rejected by the platform.</div></div>';
+  }
+  if(tab==='filings'){
+    return '<div class="panel"><h3>Regulatory filings log</h3><div class="desc">Every document lodged with NAMFISA, with the timestamp that proves the deadline was met.</div>'+
+      '<table><thead><tr><th>Offering</th><th>Filing</th><th>Rule</th><th>Status</th></tr></thead><tbody>'+
+      S.filings.map(f=>{const o=off(f.offeringId);return '<tr><td>'+(o?o.title:'—')+'</td><td>'+f.type+'<div style="font-size:12px;color:var(--muted)">'+f.note+'</div></td><td style="font-size:13px;color:var(--muted)">'+(f.submittedAt?fmtDate(f.submittedAt):'—')+'</td><td>'+(f.submittedAt?'<span class="badge green">Filed</span>':'<span class="badge red">Overdue</span>')+'</td></tr>';}).join('')+
+      '</tbody></table></div>';
+  }
+  return '<div class="panel"><h3>Quarterly return to NAMFISA</h3><div class="desc">Section 47(1) — the eight data points the operator must report every quarter.</div>'+
+    '<table><thead><tr><th>Required item</th><th>Source</th><th class="num">Value</th></tr></thead><tbody>'+
+    [['Issuers and amounts raised','Offerings table',NS(S.offerings.reduce((a,o)=>a+o.raised,0))],
+     ['Investors per category','Investor register',S.investors.length+' across 3 categories'],
+     ['Investor profiles and trends','KYC records','Median ticket N$88,000'],
+     ['Types of instrument used','Offering records','2 equity, 1 debt, 1 closed'],
+     ['Risk incidents and breaches','Incident log','0 open'],
+     ['Unresolved complaints','Complaints register','0 open'],
+     ['Unsuccessful issuances','Round history','0 to date'],
+     ['Management accounts','Finance','Attached']]
+    .map(r=>'<tr><td>'+r[0]+'</td><td style="font-size:13px;color:var(--muted)">'+r[1]+'</td><td class="num">'+r[2]+'</td></tr>').join('')+
+    '</tbody></table>'+
+    '<button class="btn btn-primary mt24" onclick="exportReport()">Export quarterly return (JSON)</button>'+
+    '<button class="btn btn-ghost mt24" style="margin-left:8px" onclick="exportCSV()">Export investor register (CSV)</button></div>';
+}
+
+function approve(id){
+  const o = off(id); if(!o) return;
+  o.status='live'; o.approvedAt=now(); o.openedAt=now(); o.closesAt=now()+60*D;
+  S.filings.push({id:'f'+S.filings.length+1, offeringId:id, type:'Offering document to NAMFISA', submittedAt:now(), note:'Filed 48 hours before publication (s13(1))'});
+  audit('Compliance approved and published '+o.title+'. Round opens for a maximum of 60 days.','Compliance');
+  save(); render();
+}
+function closeRound(id){
+  const o = off(id); if(!o||o.status!=='live') return;
+  o.status='closed'; o.closedAt=now();
+  if(o.raised >= o.target){
+    audit('Round closed at target for '+o.title+'. '+NS(o.raised)+' released to issuer within five business days (s21).','Compliance');
+    S.subs.filter(s=>s.offeringId===id&&s.status==='cooling').forEach(s=>s.status='confirmed');
+  } else {
+    const refunded = S.subs.filter(s=>s.offeringId===id).reduce((a,s)=>a+s.amount,0);
+    S.subs.filter(s=>s.offeringId===id).forEach(s=>s.status='refunded');
+    audit('Round for '+o.title+' failed to reach target. '+NS(refunded)+' refunded within 48 hours (s18).','Compliance');
+  }
+  save(); render();
+}
+function settleAll(){
+  S.subs.filter(s=>s.status==='cooling').forEach(s=>{s.status='confirmed'; s.settledAt=now();});
+  audit('Cooling-off periods expired; subscriptions confirmed.','Compliance');
+  save(); render();
+}
+function resetDemo(){ localStorage.removeItem(KEY); S=seed(); save(); location.hash='#/'; render(); }
+
+function download(name, text, type){
+  const b = new Blob([text], {type:type||'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(b); a.download = name; a.click();
+}
+function exportReport(){
+  const rep = {
+    report:'NAMFISA quarterly return — s47(1)',
+    operator:'Tunga Crowdfunding (Pty) Ltd',
+    period:'Q4 2026',
+    generated:new Date().toISOString(),
+    issuers:S.offerings.map(o=>({spv:o.spv, registration:o.regNo, instrument:o.type, target:o.target, raised:o.raised, status:o.status})),
+    investorsByCategory:S.investors.reduce((a,i)=>{a[i.classification]=(a[i.classification]||0)+1;return a;},{}) ,
+    instruments:['equity','debt'],
+    riskIncidents:[],
+    unresolvedComplaints:[],
+    unsuccessfulIssuances:S.offerings.filter(o=>o.status==='closed'&&o.raised<o.target).length,
+    totalRaised:S.offerings.reduce((a,o)=>a+o.raised,0)
+  };
+  download('tunga-namfisa-q4-2026.json', JSON.stringify(rep,null,2));
+}
+function exportCSV(){
+  const rows = [['name','email','category','net_worth','annual_limit','ytd_invested']];
+  S.investors.forEach(i=>rows.push([i.name,i.email,i.classification,i.netWorth,capFor(i),i.ytd]));
+  download('tunga-investor-register.csv', rows.map(r=>r.join(',')).join('\n'), 'text/csv');
+}
+
+/* ---------- rulebook ---------- */
+function renderRulebook(){
+  const map = [
+    ['s4–s5','Sandbox admission','Pty Ltd, three months of operating expenses in liquid assets, business plan, platform rules, risk framework, standard offering document.','Application pack'],
+    ['s10(3)','Issuer cap','Maximum N$10m per issuer in any 12-month period; N$1m for startups.','Enforced at offering creation'],
+    ['s11','Investor limits','Retail: lesser of 10% of net worth or N$100,000 a year. Sophisticated and HNWI: 10% of net worth.','Hard block in subscription flow'],
+    ['s13','Offering document','Standardised under Annexure 1, filed with NAMFISA 48 hours before publication, live to investors 14 days before the offer opens.','Filing log and review clock'],
+    ['s15','Round duration','Maximum 60 days, extendable by 30 with NAMFISA approval.','Countdown on every offering'],
+    ['s17–s19','Oversubscription and refunds','No subscriptions beyond target. Failed rounds refunded within 48 hours or the operator is liable at prime rate.','Refund workflow'],
+    ['s21','Release of funds','Custodian releases to the issuer within five business days of close.','Settlement step'],
+    ['s22','Cooling-off','48 hours from subscription to withdraw without restriction.','Portfolio cancel button'],
+    ['s28','Operator prohibitions','No investment advice, no handling investor funds, no promised returns.','Architecture: custodian bank holds cash'],
+    ['s35','Risk acknowledgement','Four mandatory affirmations before any subscription is accepted.','Subscription step 2'],
+    ['s37','Review deadline','Decision within 90 days of a complete offering document.','Review queue clock'],
+    ['s42','Post-offer inspection','Within three months of close; report to NAMFISA two weeks later.','Deadline board'],
+    ['s46','Record keeping','Holdings, transfers, communications and KYC for seven years.','Audit log'],
+    ['s47','Reporting','Quarterly return, quarterly management accounts, audited annual financials within three months.','Export function']
+  ];
+  return '<div class="wrap"><section style="padding-top:40px">'+
+    '<div class="eyebrow">Compliance by design</div>'+
+    '<h1 style="font-size:38px">The rulebook, mapped to the software</h1>'+
+    '<p class="lead" style="font-size:16px;margin-top:14px">Every obligation in the NAMFISA Regulatory Sandbox Crowdfunding Guidelines, and where it lives in this platform. Nothing here is a policy document sitting in a drawer.</p>'+
+    '<div class="panel mt32" style="padding:0;overflow:hidden">'+
+      '<table><thead><tr><th style="width:90px">Section</th><th style="width:200px">Obligation</th><th>Requirement</th><th style="width:220px">Where it is enforced</th></tr></thead><tbody>'+
+      map.map(r=>'<tr><td style="font-size:12.5px;color:var(--green);font-variant-numeric:tabular-nums">'+r[0]+'</td><td style="font-weight:500">'+r[1]+'</td><td style="font-size:13px;color:var(--ink2)">'+r[2]+'</td><td><span class="badge green">'+r[3]+'</span></td></tr>').join('')+
+      '</tbody></table>'+
+    '</div>'+
+    '<div class="grid2 mt32">'+
+      '<div class="panel"><h3>What still has to happen outside this software</h3><ul style="margin:12px 0 0 18px;font-size:13.5px;color:var(--ink2)">'+
+        '<li style="margin-bottom:8px">Sign a custodian agreement with a Bank of Namibia-licensed bank</li>'+
+        '<li style="margin-bottom:8px">Incorporate the operating company as a company limited by shares</li>'+
+        '<li style="margin-bottom:8px">Recruit key personnel with three years in SME finance or fund management</li>'+
+        '<li style="margin-bottom:8px">Complete fit-and-proper packs for every key responsible person</li>'+
+        '<li style="margin-bottom:8px">Appoint an auditor and set up quarterly management accounts</li>'+
+        '<li>Negotiate the application fee and sandbox duration with NAMFISA</li>'+
+      '</ul></div>'+
+      '<div class="panel"><h3>What this prototype does not do yet</h3><ul style="margin:12px 0 0 18px;font-size:13.5px;color:var(--ink2)">'+
+        '<li style="margin-bottom:8px">Real identity verification and FIA-compliant KYC</li>'+
+        '<li style="margin-bottom:8px">Actual payment rails and custodian API integration</li>'+
+        '<li style="margin-bottom:8px">Digital signatures on the investment agreement</li>'+
+        '<li style="margin-bottom:8px">The secondary trading facility (s30)</li>'+
+        '<li style="margin-bottom:8px">Server-side data storage, authentication and audit immutability</li>'+
+        '<li>Document generation for the Annexure 1 offering document</li>'+
+      '</ul></div>'+
+    '</div>'+
+  '</section></div>';
+}
+
+/* ---------- footer ---------- */
+function renderFoot(){
+  document.getElementById('foot').innerHTML =
+    '<div class="cols">'+
+      '<div><div class="brand" style="margin-bottom:10px"><span class="mark">T</span>Tunga</div>'+
+      '<p style="max-width:340px">Property crowdfunding for Namibia. Operating in the NAMFISA Regulatory Sandbox under the Crowdfunding Guidelines effective 28 November 2025.</p></div>'+
+      '<div><h4>Platform</h4><a href="#/">Offerings</a><a href="#/rulebook">Rulebook</a><a href="#/portfolio">My portfolio</a></div>'+
+      '<div><h4>Legal</h4><a href="#/rulebook">Risk warnings</a><a href="#/rulebook">Complaints</a><a href="#/rulebook">Terms</a></div>'+
+    '</div>'+
+    '<div class="rule">This is a prototype built to demonstrate a compliant platform architecture. All offerings, issuers, investors and figures are illustrative and do not represent a real offer of securities. Tunga is not licensed by NAMFISA. Nothing on this page is investment advice. Capital at risk. <span style="color:var(--ink2)">Build 2.2</span></div>';
+}
+
+/* ---------- router ---------- */
+function render(){
+  renderNav(); renderFoot();
+  const app = document.getElementById('app');
+  let h = location.hash || '#/';
+  h = h.replace(/\/+$/, '') || '#/';
+  try {
+    if(h.indexOf('#/offering/') === 0) app.innerHTML = renderOffering(h.split('/')[2]);
+    else if(h === '#/portfolio') app.innerHTML = renderPortfolio();
+    else if(h === '#/issuer') app.innerHTML = renderIssuer();
+    else if(h === '#/console') app.innerHTML = renderConsole();
+    else if(h === '#/rulebook') app.innerHTML = renderRulebook();
+    else app.innerHTML = renderHome();
+  } catch(err){
+    app.innerHTML = '<div class="wrap"><section><div class="notice err"><strong>This page failed to render.</strong><br>'+
+      (err && err.message ? err.message : 'Unknown error')+'</div>'+
+      '<p style="font-size:13px;color:var(--muted)">Route: '+h+'</p>'+
+      '<button class="btn btn-ghost btn-sm" onclick="resetDemo()">Reset demo data and reload</button></section></div>';
+    if(window.console) console.error(err);
+  }
+  if(S.modal) renderModal();
+  try { window.scrollTo(0,0); } catch(e){}
+}
+
+window.addEventListener('hashchange', render);
+render();
+setInterval(()=>{ if(S.modal && S.modal.step===4) return; if(location.hash==='#/portfolio') render(); }, 30000);
+</script>
+</body>
+</html>
