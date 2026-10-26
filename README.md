@@ -2,6 +2,9 @@
 
 **Live:** https://gurucle.github.io/tunga/
 
+**One-page briefing:** [Tunga-briefing.pdf](Tunga-briefing.pdf) — a single A4 sheet
+written for a regulator or a custodian bank, intended to be read before the link.
+
 A working prototype of a property crowdfunding platform for Namibia, built against the
 **NAMFISA Regulatory Sandbox Crowdfunding Guidelines** (effective 28 November 2025).
 
@@ -83,10 +86,22 @@ Pushing only to `main` will update the source but **not** the live site.
 ## Structure
 
 ```
-index.html          the entire application — markup, styles and logic
-images/             property photography used by the site (JPEG, 1200px wide)
-images/originals/   full-resolution sources (PNG, 1536px, watermarked)
+index.html            the entire application — markup, styles and logic
+images/               property photography used by the site (JPEG, 1200px wide)
+images/originals/     full-resolution sources (PNG, 1536px, watermarked)
+Tunga-briefing.pdf    the one-page A4 briefing
+build_briefing.py     generator for the PDF (reportlab, embeds Georgia + Arial)
 ```
+
+To rebuild the briefing after editing its text:
+
+```bash
+pip install reportlab
+python build_briefing.py Tunga-briefing.pdf
+```
+
+`PREVIEW_SCALE=3 python build_briefing.py /tmp/preview.pdf` renders a 3× page for
+visual proofing, since macOS `sips` always rasterises at 72 dpi.
 
 ## Compliance map
 
