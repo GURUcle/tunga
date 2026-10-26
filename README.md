@@ -1,5 +1,7 @@
 # Tunga
 
+**Live:** https://gurucle.github.io/tunga/
+
 A working prototype of a property crowdfunding platform for Namibia, built against the
 **NAMFISA Regulatory Sandbox Crowdfunding Guidelines** (effective 28 November 2025).
 
@@ -66,6 +68,17 @@ Or just open `index.html` in a browser.
 
 State lives in `localStorage` under the key `tunga.v2`. If the demo ever looks stale or
 empty, use **Reset demo data** in the top right of the portfolio page.
+
+## Deploying
+
+GitHub Pages serves this from the **`gh-pages`** branch, not `main`. The two branches are
+kept identical — this repo is configured to push `main` to both:
+
+```bash
+git push origin main:main main:gh-pages
+```
+
+Pushing only to `main` will update the source but **not** the live site.
 
 ## Structure
 
